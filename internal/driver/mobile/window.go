@@ -42,6 +42,10 @@ func (w *window) SetFullScreen(bool) {
 	// no-op
 }
 
+func (w *window) SetPosition(fyne.Position) {
+	// no-op
+}
+
 func (w *window) Resize(size fyne.Size) {
 	w.Canvas().(*canvas).Resize(size)
 }

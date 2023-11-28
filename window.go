@@ -15,6 +15,11 @@ type Window interface {
 	// true for a fullScreen window and false to unset this.
 	SetFullScreen(bool)
 
+	// SetPosition sets the position of the window to the requested position.
+	// The result may not be exactly as desired due to various desktop or
+	// platform constraints.
+	SetPosition(Position)
+
 	// Resize this window to the requested content size.
 	// The result may not be exactly as desired due to various desktop or
 	// platform constraints.

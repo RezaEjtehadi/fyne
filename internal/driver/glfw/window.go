@@ -52,6 +52,12 @@ func (w *window) screenSize(canvasSize fyne.Size) (int, int) {
 	return scale.ToScreenCoordinate(w.canvas, canvasSize.Width), scale.ToScreenCoordinate(w.canvas, canvasSize.Height)
 }
 
+func (w *window) SetPosition(pos fyne.Position) {
+	w.requestedX = int(pos.X)
+	w.requestedY = int(pos.Y)
+	w.runOnMainWhenCreated(w.handlePosition)
+}
+
 func (w *window) Resize(size fyne.Size) {
 	// we cannot perform this until window is prepared as we don't know it's scale!
 	bigEnough := size.Max(w.canvas.canvasSize(w.canvas.Content().MinSize()))
