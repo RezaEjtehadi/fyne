@@ -109,6 +109,7 @@ type window struct {
 	requestedX, requestedY          int
 	shouldWidth, shouldHeight       int
 	shouldExpand                    bool
+	shouldSetPosition               bool
 
 	pending []func()
 }
@@ -238,11 +239,9 @@ func (w *window) SetMaster() {
 }
 
 func (w *window) handlePosition() {
-	w.viewLock.RLock()
-	view := w.viewport
-	w.viewLock.RUnlock()
-
-	view.SetPos(w.requestedX, w.requestedY)
+	w.viewLock.Lock()
+	w.shouldExpand = true // queue the position setting to happen on main
+	w.viewLock.Unlock()
 }
 
 func (w *window) fitContent() {

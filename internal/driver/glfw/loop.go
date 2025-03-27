@@ -148,6 +148,7 @@ func (d *gLDriver) runGL() {
 
 				w.viewLock.RLock()
 				expand := w.shouldExpand
+				setPosition := w.shouldSetPosition
 				fullScreen := w.fullScreen
 				w.viewLock.RUnlock()
 
@@ -161,6 +162,14 @@ func (d *gLDriver) runGL() {
 					if shouldExpand && runtime.GOOS != "js" {
 						view.SetSize(w.shouldWidth, w.shouldHeight)
 					}
+				}
+
+				if setPosition && !fullScreen {
+					w.viewLock.Lock()
+					view := w.viewport
+					w.shouldSetPosition = false
+					w.viewLock.Unlock()
+					view.SetPos(w.requestedX, w.requestedY)
 				}
 
 				if drawOnMainThread {
