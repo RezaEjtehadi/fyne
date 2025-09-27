@@ -59,6 +59,10 @@ func (w *window) CenterOnScreen() {
 	// no-op
 }
 
+func (w *window) SetPosition(fyne.Position) {
+	// no-op
+}
+
 func (w *window) Padded() bool {
 	return w.canvas.padded
 }
