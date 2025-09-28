@@ -228,24 +228,24 @@ func (w *window) SetMaster() {
 }
 
 func (w *window) handlePosition() {
-    // قفل کردن thread مانند کد سالم
-    runtime.LockOSThread()
-    defer runtime.UnlockOSThread()
-    
-    view := w.viewport
-    
-    // تنظیم موقعیت قبل از نمایش یا در حین نمایش
-    view.SetPos(w.requestedX, w.requestedY)
-    
-    // مطمئن شدن از context current
-    view.MakeContextCurrent()
-    
-    // برای ویندوز، پردازش رویدادها
-    if runtime.GOOS == "windows" {
-        glfw.PollEvents()
-        // ممکن است نیاز به تاخیر باشد
-        time.Sleep(16 * time.Millisecond) // تقریباً یک فریم
-    }
+	// قفل کردن thread مانند کد سالم
+	runtime.LockOSThread()
+	defer runtime.UnlockOSThread()
+
+	view := w.viewport
+
+	// تنظیم موقعیت قبل از نمایش یا در حین نمایش
+	view.SetPos(w.requestedX, w.requestedY)
+
+	// مطمئن شدن از context current
+	view.MakeContextCurrent()
+
+	// برای ویندوز، پردازش رویدادها
+	if runtime.GOOS == "windows" {
+		glfw.PollEvents()
+		// ممکن است نیاز به تاخیر باشد
+		time.Sleep(16 * time.Millisecond) // تقریباً یک فریم
+	}
 }
 
 func (w *window) fitContent() {
@@ -768,6 +768,8 @@ func (w *window) create() {
 		glfw.WindowHint(glfw.Resizable, glfw.True)
 	}
 	glfw.WindowHint(glfw.AutoIconify, glfw.False)
+	glfw.WindowHint(glfw.Decorated, glfw.False)
+
 	initWindowHints()
 
 	pixWidth, pixHeight := w.screenSize(w.canvas.size)
