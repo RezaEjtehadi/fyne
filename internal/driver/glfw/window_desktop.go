@@ -228,12 +228,24 @@ func (w *window) SetMaster() {
 }
 
 func (w *window) handlePosition() {
-	//w.viewLock.RLock()
-	view := w.viewport
-	//w.viewLock.RUnlock()
-
-	view.SetPos(w.requestedX, w.requestedY)
-	view.MakeContextCurrent()
+    // قفل کردن thread مانند کد سالم
+    runtime.LockOSThread()
+    defer runtime.UnlockOSThread()
+    
+    view := w.viewport
+    
+    // تنظیم موقعیت قبل از نمایش یا در حین نمایش
+    view.SetPos(w.requestedX, w.requestedY)
+    
+    // مطمئن شدن از context current
+    view.MakeContextCurrent()
+    
+    // برای ویندوز، پردازش رویدادها
+    if runtime.GOOS == "windows" {
+        glfw.PollEvents()
+        // ممکن است نیاز به تاخیر باشد
+        time.Sleep(16 * time.Millisecond) // تقریباً یک فریم
+    }
 }
 
 func (w *window) fitContent() {
