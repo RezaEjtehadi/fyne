@@ -233,6 +233,7 @@ func (w *window) handlePosition() {
 	//w.viewLock.RUnlock()
 
 	view.SetPos(w.requestedX, w.requestedY)
+	view.MakeContextCurrent()
 }
 
 func (w *window) fitContent() {
