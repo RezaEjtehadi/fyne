@@ -743,9 +743,9 @@ func (w *window) RescaleContext() {
 		return
 	}
 
-	size := w.canvas.size.Max(w.canvas.MinSize())
-	newWidth, newHeight := w.screenSize(size)
-	w.viewport.SetSize(newWidth, newHeight)
+	//size := w.canvas.size.Max(w.canvas.MinSize())
+	//newWidth, newHeight := w.screenSize(size)
+	//w.viewport.SetSize(newWidth, newHeight)
 
 	// Ensure textures re-rasterize at the new scale
 	cache.DeleteTextTexturesFor(w.canvas)
@@ -806,7 +806,7 @@ func (w *window) create() {
 
 	win.SetCloseCallback(w.closed)
 	win.SetPosCallback(w.moved)
-	win.SetSizeCallback(w.resized)
+	//win.SetSizeCallback(w.resized)
 	win.SetFramebufferSizeCallback(w.frameSized)
 	win.SetRefreshCallback(w.refresh)
 	win.SetContentScaleCallback(w.scaled)
@@ -836,7 +836,7 @@ func (w *window) create() {
 
 	w.requestedWidth, w.requestedHeight = w.width, w.height
 	// order of operation matters so we do these last items in order
-	w.viewport.SetSize(w.shouldWidth, w.shouldHeight) // ensure we requested latest size
+	//w.viewport.SetSize(w.shouldWidth, w.shouldHeight) // ensure we requested latest size
 }
 
 func (w *window) view() *glfw.Window {
