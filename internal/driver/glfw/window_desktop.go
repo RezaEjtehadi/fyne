@@ -772,6 +772,7 @@ func (w *window) create() {
 	glfw.WindowHint(glfw.ContextVersionMajor, 3)
 	glfw.WindowHint(glfw.ContextVersionMinor, 3)
 	glfw.WindowHint(glfw.Decorated, glfw.False)
+	glfw.WindowHint(glfw.Floating, glfw.True)
 
 	initWindowHints()
 
